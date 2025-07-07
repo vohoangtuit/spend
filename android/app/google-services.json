@@ -1,0 +1,80 @@
+{
+  "project_info": {
+    "project_number": "200591558818",
+    "firebase_url": "https://thuchi-42eb8.firebaseio.com",
+    "project_id": "thuchi",
+    "storage_bucket": "thuchi.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200591558818:android:b7590db7a5045bda",
+        "android_client_info": {
+          "package_name": "vht.qltc.vn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "200591558818-2csb3eed23d5rkoq4jsm94870eet76ql.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vht.qltc.vn",
+            "certificate_hash": "aa8a9378d82c940e9f5324a2070a36d736d0b9a5"
+          }
+        },
+        {
+          "client_id": "200591558818-g9sii65j21pt03n2ot41j064b8b14935.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vht.qltc.vn",
+            "certificate_hash": "150e2c3c839df23aaa9f44a7ad067ada9bf26c21"
+          }
+        },
+        {
+          "client_id": "200591558818-jclcfggpvi09osdh87vapkqbcmevjkqr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vht.qltc.vn",
+            "certificate_hash": "1eef2ab86df16d8d31a262e0d8dc514e1a2cb889"
+          }
+        },
+        {
+          "client_id": "200591558818-l7vn16jr78qvavumfrehdg4nfdh1cg9q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vht.qltc.vn",
+            "certificate_hash": "c5247ff86b9dbb432c8da1c4865ebfe220be5713"
+          }
+        },
+        {
+          "client_id": "200591558818-qfcbd3tovc886dkgmukq3r0j9ms42vrq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vht.qltc.vn",
+            "certificate_hash": "d8621658837fa6715b5d833c5f35a5c30862e845"
+          }
+        },
+        {
+          "client_id": "200591558818-3uba3llh2v9ltqeqke7mub28a1oh42il.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr_NYfeQK83qMhdMqxOeDrikZOoQeiRxA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "200591558818-3uba3llh2v9ltqeqke7mub28a1oh42il.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
