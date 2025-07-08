@@ -5,6 +5,7 @@ import 'package:drift/drift.dart';
 class AccountInfo extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get socialId => text().nullable()();
+  TextColumn get uuid => text().nullable()();
   TextColumn get userId => text().nullable()();
   TextColumn get fullName => text().nullable()();
   TextColumn get email => text().nullable()();

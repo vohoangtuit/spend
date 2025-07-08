@@ -49,6 +49,7 @@ class AccountDao extends DatabaseAccessor<AppDatabase> with _$AccountDaoMixin {
     AccountInfoCompanion data = AccountInfoCompanion(
       socialId: Value(user.socialId ?? ""),
       userId: Value(user.userId ?? ""),
+      uuid: Value(user.uuid ?? ""),
       fullName: Value(user.fullName ?? ""),
       email: Value(user.email ?? ""),
       phoneNumber: Value(user.phoneNumber ?? ""),

@@ -1,5 +1,6 @@
-export PATH="/Users/vohoangtuit/DATA/DEVELOP/AndroidStudio/android_sdk/platform-tools"3
 
+// todo : bitbucket pass: EY6IAG7TKR70M6BJNKZII0AQ
+// https://bitbucket.org/vohoangtuit/workspace/repositories/
 1// nếu có thay đổi api_provider.dart thì run comment line để update api_provider.g.dart
 - export PATH="/Users/vohoangtuit/DATA/DEVELOP/AndroidStudio/flutter_sdk/flutter/bin:$PATH" // change path
 - export PATH="/Users/tuvh/DATA/sdk/flutter/bin:$PATH"

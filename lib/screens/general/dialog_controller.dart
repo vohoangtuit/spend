@@ -21,6 +21,9 @@ Future dismissDialog() async{
 Future  showBaseNotification(String title, String description,{bool ? notCenter}) async {
     await dismissDialog();
     dialog = Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20), // 👈 Bo góc ở đây
+      ),
       child: generalMessage(context, title, description, dismissDialog,true,notCenter: notCenter),
     );
     _showDialog();

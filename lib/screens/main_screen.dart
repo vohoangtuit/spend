@@ -1,6 +1,5 @@
 import 'package:expenditure/localization/l10n/app_localizations.dart';
-import 'package:expenditure/model/data_model.dart';
-import 'package:expenditure/screens/bottomsheet/view_add_data.dart' show addData;
+import 'package:expenditure/providers/create_provider.dart';
 import 'package:expenditure/screens/expenditure/expenditure_screen.dart';
 import 'package:expenditure/screens/general/base_screen.dart';
 import 'package:expenditure/screens/income/income_screen.dart';
@@ -24,12 +23,12 @@ class _MainScreenState extends BaseScreen<MainScreen> {
     keepPage: true,
   );
   int _currentTab=0;
-  List<Widget> lisScreen=[
-    const ExpenditureScreen(),
-    const IncomeScreen(),
-    const StatisticScreen(),
-    const SettingScreen(),
+  List<Widget> _lisScreen=[
   ];
+  final ValueNotifier<bool> expenditureNotifier = ValueNotifier(false);
+  final ValueNotifier<bool> incomeNotifier = ValueNotifier(false);
+  bool _createExpenditure = false;
+   bool _createIncome = false;
   @override
   Widget build(BuildContext context) {
     return deviceScreen(
@@ -49,7 +48,7 @@ class _MainScreenState extends BaseScreen<MainScreen> {
           onPageChanged: (index) {
             pageChanged(index);
           },
-          children:lisScreen,
+          children:_lisScreen,
         ),
         _viewButtonAdd()
       ],
@@ -61,7 +60,7 @@ class _MainScreenState extends BaseScreen<MainScreen> {
       right: 20,
       child: FloatingActionButton(
         onPressed: () async{
-          addData(context: context, data: (DataModel value) {  });
+          onCreateData();
           // Handle the add button action
         },
         backgroundColor: Colors.blue,
@@ -104,6 +103,28 @@ class _MainScreenState extends BaseScreen<MainScreen> {
       ),
     );
   }
+  @override
+  void initState() {
+
+    super.initState();
+    _init();
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      ref.watch(createProvider);
+    });
+
+  }
+  void _init(){
+    if(mounted){
+      setState(() {
+        _lisScreen =[
+          ExpenditureScreen(),
+          IncomeScreen(),
+          const StatisticScreen(),
+          const SettingScreen(),
+        ];
+      });
+    }
+  }
   void pageChanged(int index) {// todo Swapping
     setState(() {
       _currentTab = index;
@@ -116,4 +137,18 @@ class _MainScreenState extends BaseScreen<MainScreen> {
       _pageController.jumpToPage(_currentTab);
     });
   }
+
+  void onCreateData(){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if(_currentTab==0){
+        ref.watch(createProvider.notifier).addExpenditure();
+
+      }else if(_currentTab==1){
+        ref.watch(createProvider.notifier).addIncome();
+
+      }
+    });
+  }
+
+
 }

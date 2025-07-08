@@ -9,9 +9,10 @@ class StatisticScreen extends StatefulWidget {
   State<StatisticScreen> createState() => _StatisticScreenState();
 }
 
-class _StatisticScreenState extends State<StatisticScreen> {
+class _StatisticScreenState extends State<StatisticScreen> with AutomaticKeepAliveClientMixin<StatisticScreen>{
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: baseAppBar(context, AppLocalizations.of(context)!.statistic),
       body: _viewContent(),
@@ -22,4 +23,8 @@ class _StatisticScreenState extends State<StatisticScreen> {
       margin: EdgeInsets.only(left:10,right:10,bottom: 70),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

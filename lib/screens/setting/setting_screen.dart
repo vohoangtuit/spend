@@ -15,9 +15,10 @@ class SettingScreen extends ConsumerStatefulWidget {
   ConsumerState<SettingScreen> createState() => _SettingScreenState();
 }
 
-class _SettingScreenState extends BaseScreen<SettingScreen> {
+class _SettingScreenState extends BaseScreen<SettingScreen> with AutomaticKeepAliveClientMixin<SettingScreen>{
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: baseAppBar(context, AppLocalizations.of(context)!.setting),
       body: _viewContent(),
@@ -60,4 +61,8 @@ class _SettingScreenState extends BaseScreen<SettingScreen> {
       ],
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

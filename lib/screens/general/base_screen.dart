@@ -5,6 +5,7 @@ import 'package:expenditure/core/core_screen.dart';
 import 'package:expenditure/database/app_database.dart';
 import 'package:expenditure/database/sharedPre/shared_pre.dart';
 import 'package:expenditure/model/user_model.dart';
+import 'package:expenditure/providers/create_provider.dart';
 import 'package:expenditure/providers/setup_single_ton.dart';
 import 'package:expenditure/screens/general/dialog_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,6 +45,17 @@ abstract class BaseScreen<T extends ConsumerStatefulWidget> extends CoreScreen<T
       appDatabase =setup.appDatabase!;
       getAccountDatabase();
     }
+  }
+  CreateProvider getEventProvider() {
+    CreateProvider event =CreateProvider.setNotCreate();
+    final get = ref.watch(createProvider);
+    if(get.expenditure!=null){
+      event.expenditure = get.expenditure;
+    }
+    if(get.income!=null){
+      event.income = get.income;
+    }
+    return ref.read(createProvider);
   }
   Future<void> getAccountDatabase() async {
     await appDatabase.accountDao.getFirstAccount().then((data) {

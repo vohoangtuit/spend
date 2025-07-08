@@ -23,8 +23,8 @@ class AppDatabase extends _$AppDatabase {
 
   // Khai báo DAO
   late final AccountDao accountDao = AccountDao(this);
-  late final ExpenditureDao spendsDao = ExpenditureDao(this);
-  late final IncomeDao revenuesDao = IncomeDao(this);
+  late final ExpenditureDao expenditure = ExpenditureDao(this);
+  late final IncomeDao income = IncomeDao(this);
 
   // Thêm các DAO khác nếu cần
 }
