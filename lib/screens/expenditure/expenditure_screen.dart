@@ -1,8 +1,11 @@
 import 'package:expenditure/database/app_database.dart';
 import 'package:expenditure/localization/l10n/app_localizations.dart';
 import 'package:expenditure/model/data_model.dart';
-import 'package:expenditure/screens/bottomsheet/view_add_data.dart';
+import 'package:expenditure/model/group_data_model.dart';
+import 'package:expenditure/screens/dialog/dialog_controller.dart';
+import 'package:expenditure/screens/general/view_add_data.dart';
 import 'package:expenditure/screens/general/base_screen.dart';
+import 'package:expenditure/screens/items/item_expenditure.dart';
 import 'package:expenditure/widgets/general_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,8 +21,8 @@ class ExpenditureScreen extends ConsumerStatefulWidget {
 }
 
 class _ExpenditureScreenState extends BaseScreen<ExpenditureScreen> with AutomaticKeepAliveClientMixin<ExpenditureScreen>{
-
-  List<ExpenditureInfoData> _data = [];
+   List<GroupDataExpenditure> _group =[];
+   List<ExpenditureInfoData> _data = [];
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -31,25 +34,25 @@ class _ExpenditureScreenState extends BaseScreen<ExpenditureScreen> with Automat
   }
   Widget _viewContent() {
     return Container(
-      margin: EdgeInsets.only(left:10,right:10,bottom: 70),
-      child: Expanded(child: _viewList()),
+      margin: EdgeInsets.only(left:20,right:20,bottom: 70),
+      child: Column(
+        children: [
+          _viewList(),
+        ],
+      ),
+
     );
   }
   Widget _viewList() {
-    return ListView.builder(
-      itemCount: _data.length,
-      itemBuilder: (context, index) {
-        ExpenditureInfoData item = _data[index];
-        return ListTile(
-          title: Text(item.name ?? ''),
-          subtitle: Text(item.money.toString() ?? ''),
-          trailing: Text('${item.yearMonthDay}'),
-          onTap: () {
-            // Handle item tap
-          },
-        );
-      },
-    );
+    return _group.isNotEmpty?Expanded(
+   child: ListView.builder(
+      physics: ClampingScrollPhysics(),
+       shrinkWrap: true,
+       padding: EdgeInsets.only(top: 10),
+       itemCount: _group.length,
+       itemBuilder: (_,index)=>ItemExpenditure(item: _group[index],)
+   ),
+    ):Container();
   }
   void _provider() {
     var event  =getEventProvider();
@@ -58,7 +61,8 @@ class _ExpenditureScreenState extends BaseScreen<ExpenditureScreen> with Automat
       if(event.expenditure!) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           // ref.watch(createProvider.notifier).reset();
-          _showAdd();
+          //_showAdd();
+          _showCreate();
         });
 
       }
@@ -80,15 +84,30 @@ class _ExpenditureScreenState extends BaseScreen<ExpenditureScreen> with Automat
      if(mounted){
        _data = data;
      }
-     log("Expenditure: ${_data.length}");
+     _groupData();
    });
   }
+   void _groupData()async{
+     await GroupDataExpenditure.groupByDate(_data).then((list){
+       setState(() {
+         _group =list;
+       });
+     });
+     log('_groupData ${_group.length}');
+   }
+   void _showCreate(){
+    DialogController(context).createData(title: '${AppLocalizations.of(context)!.add} ${AppLocalizations.of(context)!.expenditure}', data: (data){
+
+    });
+   }
   void _showAdd(){
     buildCreateData(
         context: context,
         title: '${AppLocalizations.of(context)!.add} ${AppLocalizations.of(context)!.expenditure}',
         data: (DataModel data) {
-          _handelAdd(data);
+          Future.delayed(Duration(seconds: 1),(){
+            _handelAdd(data);
+          });
 
         }
     );
@@ -101,11 +120,13 @@ class _ExpenditureScreenState extends BaseScreen<ExpenditureScreen> with Automat
             _data.add(item);
           });
         }
+        log('_data ${_data.length}');
+        _groupData();
       }
     });
 
-
   }
+
 
   @override
   // TODO: implement wantKeepAlive

@@ -30,6 +30,7 @@
   "notification": "Thông báo",
   "ok": "OK",
   "add": "Thêm",
+  "enter": "Nhập....",
 
 
   "msgErrorLoginSocial": "Không thể lấy thông tin đăng nhập, vui lòng thử lại sau"

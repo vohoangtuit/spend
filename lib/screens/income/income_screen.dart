@@ -1,9 +1,12 @@
+import 'dart:ui';
+
 import 'package:expenditure/database/app_database.dart';
 import 'package:expenditure/localization/l10n/app_localizations.dart';
 import 'package:expenditure/model/data_model.dart';
-import 'package:expenditure/providers/create_provider.dart';
-import 'package:expenditure/screens/bottomsheet/view_add_data.dart';
+import 'package:expenditure/model/group_data_model.dart';
+import 'package:expenditure/screens/general/view_add_data.dart';
 import 'package:expenditure/screens/general/base_screen.dart';
+import 'package:expenditure/screens/items/item_income.dart';
 import 'package:expenditure/widgets/general_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,6 +19,7 @@ class IncomeScreen extends ConsumerStatefulWidget {
 }
 
 class _IncomeScreenState extends BaseScreen<IncomeScreen> with AutomaticKeepAliveClientMixin<IncomeScreen> {
+  List<GroupDataIncome> _group =[];
   List<IncomeInfoData> _data = [];
   @override
   Widget build(BuildContext context) {
@@ -28,25 +32,24 @@ class _IncomeScreenState extends BaseScreen<IncomeScreen> with AutomaticKeepAliv
   }
   Widget _viewContent() {
     return Container(
-      margin: EdgeInsets.only(left:10,right:10,bottom: 70),
-      child: Expanded(child: _viewList()),
+      margin: EdgeInsets.only(left:20,right:20,bottom: 70),
+      child: Column(
+        children: [
+          _viewList(),
+        ],
+      ),
     );
   }
   Widget _viewList() {
-    return ListView.builder(
-      itemCount: _data.length,
-      itemBuilder: (context, index) {
-        IncomeInfoData item = _data[index];
-        return ListTile(
-          title: Text(item.name ?? ''),
-          subtitle: Text(item.money.toString() ?? ''),
-          trailing: Text('${item.yearMonthDay}'),
-          onTap: () {
-            // Handle item tap
-          },
-        );
-      },
-    );
+    return _group.isNotEmpty?Expanded(
+      child: ListView.builder(
+          physics: ClampingScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: _group.length,
+          padding: EdgeInsets.only(top: 10),
+          itemBuilder: (_,index)=>ItemIncome(item: _group[index],)
+      ),
+    ):Container();
   }
   void _provider() {
     var event  =getEventProvider();
@@ -75,16 +78,26 @@ class _IncomeScreenState extends BaseScreen<IncomeScreen> with AutomaticKeepAliv
       if(mounted){
         _data = data;
       }
+      _groupData();
     });
   }
+  void _groupData()async{
+   await GroupDataIncome.groupByDate(_data).then((list){
+      setState(() {
+        _group =list;
+      });
+    });
 
+  }
 
   void _showAdd(){
     buildCreateData(
         context: context,
         title: '${AppLocalizations.of(context)!.add} ${AppLocalizations.of(context)!.income}',
         data: (DataModel data) {
-          _handelAdd(data);
+          Future.delayed(Duration(seconds: 1),(){
+            _handelAdd(data);
+          });
 
         }
     );
@@ -97,6 +110,7 @@ class _IncomeScreenState extends BaseScreen<IncomeScreen> with AutomaticKeepAliv
             _data.add(item);
           });
         }
+        _groupData();
       }
     });
 

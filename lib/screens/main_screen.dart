@@ -25,10 +25,7 @@ class _MainScreenState extends BaseScreen<MainScreen> {
   int _currentTab=0;
   List<Widget> _lisScreen=[
   ];
-  final ValueNotifier<bool> expenditureNotifier = ValueNotifier(false);
-  final ValueNotifier<bool> incomeNotifier = ValueNotifier(false);
-  bool _createExpenditure = false;
-   bool _createIncome = false;
+
   @override
   Widget build(BuildContext context) {
     return deviceScreen(
@@ -91,12 +88,12 @@ class _MainScreenState extends BaseScreen<MainScreen> {
         children: [
           Icon(
             icon,
-            color: _currentTab == index ? Colors.blue : Colors.grey,
+            color: _currentTab == index ? AppColor.primary : Colors.grey,
           ),
           Text(
             label,
             style: TextStyle(
-              color: _currentTab == index ? Colors.blue : Colors.grey,
+              color: _currentTab == index ? AppColor.primary : Colors.grey,
             ),
           ),
         ],
@@ -119,6 +116,7 @@ class _MainScreenState extends BaseScreen<MainScreen> {
         _lisScreen =[
           ExpenditureScreen(),
           IncomeScreen(),
+
           const StatisticScreen(),
           const SettingScreen(),
         ];

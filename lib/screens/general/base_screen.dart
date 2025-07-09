@@ -7,7 +7,7 @@ import 'package:expenditure/database/sharedPre/shared_pre.dart';
 import 'package:expenditure/model/user_model.dart';
 import 'package:expenditure/providers/create_provider.dart';
 import 'package:expenditure/providers/setup_single_ton.dart';
-import 'package:expenditure/screens/general/dialog_controller.dart';
+import 'package:expenditure/screens/dialog/dialog_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../utils/connect_internet.dart';
@@ -65,9 +65,9 @@ abstract class BaseScreen<T extends ConsumerStatefulWidget> extends CoreScreen<T
             account =data;
           });
         }
-        log("Account ${account!.fullName}");
+      //  log("Account ${account!.fullName}");
       } else {
-        log("Account null");
+       // log("Account null");
       }
     });
   }

@@ -1,3 +1,4 @@
+import 'package:expenditure/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_device_type/flutter_device_type.dart';
 
@@ -81,6 +82,48 @@ Widget textWhiteButton(String text) {
     ),
   );
 }
+Text textPrimarySmall(String text) {
+  return Text(text,
+    style: textStyle(TextSize.textSmall, false, AppColor.primary),
+  );
+}
+Text textPrimary(String text) {
+  return Text(text,
+    style: textStyle(TextSize.text, false, AppColor.primary),
+  );
+}
+Text textPrimaryBold(String text) {
+  return Text(text,
+    style: textStyle(TextSize.text, true, AppColor.primary),
+  );
+}
+Text textPrimaryMedium(String text) {
+  return Text(text,
+    style: textStyle(TextSize.textMedium, false, AppColor.primary),
+  );
+}
+Text textBlue(String text) {
+  return Text(text,
+    style: textStyle(TextSize.text, false, Colors.blue),
+  );
+}
+Text textBlueBold(String text) {
+  return Text(text,
+    style: textStyle(TextSize.text, true, Colors.blue),
+  );
+}
+Text textBlueSmall(String text) {
+  return Text(text,
+    style: textStyle(TextSize.textSmall, false, Colors.blue),
+  );
+}
+
+Text textMoney(int money) {
+  return Text(Utils.formatMoney(money),
+    style: textStyle(TextSize.text, false, Colors.red),
+  );
+}
+
 class TextSize{
 
   static double heightText =1.3;

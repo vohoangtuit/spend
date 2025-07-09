@@ -5,13 +5,26 @@ import 'package:flutter/material.dart';
 import 'app_color.dart';
 import 'general_widget.dart';
 
-Widget buttonBlue100(String title, VoidCallback onSubmit) {
+Widget buttonPrimary100(String title, VoidCallback onSubmit) {
   return Center(
     child: InkWell(
       onTap: onSubmit,
       child: Container(
         width: 100,
-        decoration: bgNotBorder(Colors.blue, SizeView.radiusButton),
+        decoration: bgNotBorder(AppColor.primary, SizeView.radiusButton),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+        child: textWhiteButton(title),
+      ),
+    ),
+  );
+}
+Widget buttonPrimary150(String title, VoidCallback onSubmit) {
+  return Center(
+    child: InkWell(
+      onTap: onSubmit,
+      child: Container(
+        width: 100,
+        decoration: bgNotBorder(AppColor.primary, SizeView.radiusButton),
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
         child: textWhiteButton(title),
       ),

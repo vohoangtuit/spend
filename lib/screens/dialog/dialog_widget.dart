@@ -15,7 +15,6 @@ Widget generalMessage(BuildContext context, String title, String description,
       children: <Widget>[
         spaceHeight(15),
         textTitle(title.isEmpty ? AppLocalizations.of(context)!.notification : title),
-
         spaceHeight(15),
         const Divider(
           height: 1,
@@ -31,7 +30,7 @@ Widget generalMessage(BuildContext context, String title, String description,
           ),
         ),
         spaceHeight(30),
-        buttonBlue100(AppLocalizations.of(context)!.ok, () {
+        buttonPrimary100(AppLocalizations.of(context)!.ok, () {
           callback();
         }),
         const SizedBox(

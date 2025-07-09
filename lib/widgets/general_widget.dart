@@ -89,6 +89,12 @@ BoxDecoration bgBorder(Color color, Color border, double radius) {
       color: color,
       border: Border.all(color: border));
 }
+BoxDecoration bgBorderSmall(Color color, Color border, double radius) {
+  return BoxDecoration(
+      borderRadius: BorderRadius.circular(radius),
+      color: color,
+      border: Border.all(color: border,width: 0.5));
+}
 BoxDecoration bgNotBorder(Color color, double radius) {
   return BoxDecoration(
     borderRadius: BorderRadius.circular(radius),

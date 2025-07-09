@@ -30,6 +30,10 @@ class Utils {
     final oCcy = NumberFormat("#,##0.00", "en_US");
     return oCcy.format(amount);
   }
+  static String formatMoney(int amount) {
+    final formatter = NumberFormat('#,###', 'en_US'); // hoặc 'vi_VN' nếu muốn dùng dấu . thay vì ,
+    return formatter.format(amount);
+  }
 
   static String priceThousand(double amount){
 
