@@ -57,6 +57,9 @@ abstract class BaseScreen<T extends ConsumerStatefulWidget> extends CoreScreen<T
     }
     return ref.read(createProvider);
   }
+  void resetEvent(){
+    ref.watch(createProvider.notifier).reset();
+  }
   Future<void> getAccountDatabase() async {
     await appDatabase.accountDao.getFirstAccount().then((data) {
       if (data != null) {
@@ -92,7 +95,7 @@ abstract class BaseScreen<T extends ConsumerStatefulWidget> extends CoreScreen<T
 
   ///----
 
-  void showMessage(String title, String message,{bool ? notCenter}) {
-    DialogController(context).showBaseNotification(title, message,notCenter:notCenter);
+  void showMessage(String title, String message) {
+    DialogController(context).showBaseNotification(title, message);
   }
 }

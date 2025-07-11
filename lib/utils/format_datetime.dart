@@ -10,7 +10,7 @@ class FormatDateTime{
 
   // todo lấy số ngày kế tiếp
   static DateTime nextDay(int day){
-    var date = new DateTime.now();
+    var date =  DateTime.now();
     var now =DateTime(date.year,date.month,date.day+day);
     //var now1 =DateTime.now().add(Duration(days: day_next));// todo cách 2
     return now;

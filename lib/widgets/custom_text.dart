@@ -123,6 +123,42 @@ Text textMoney(int money) {
     style: textStyle(TextSize.text, false, Colors.red),
   );
 }
+Widget textButton(String text) {
+  return Center(
+    child: Text(
+      text,
+      style: TextStyle(
+        color: AppColor.white,
+        fontSize: TextSize.textButton,
+        fontWeight:FontWeight.bold,
+      ),
+    ),
+  );
+}
+Widget textButtonSmall(String text) {
+  return Center(
+    child: Text(
+      text,
+      style: TextStyle(
+        color: AppColor.white,
+        fontSize: TextSize.text,
+        fontWeight:FontWeight.bold,
+      ),
+    ),
+  );
+}
+Widget textButtonSmallColor(String text,Color color) {
+  return Center(
+    child: Text(
+      text,
+      style: TextStyle(
+        color: color,
+        fontSize: TextSize.text,
+        fontWeight:FontWeight.bold,
+      ),
+    ),
+  );
+}
 
 class TextSize{
 

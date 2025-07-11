@@ -15,6 +15,7 @@ class DataModel{
   String? uuid;
   String? timestamp;
 
+
   DataModel({this.id, this.name, this.money, this.day, this.month,
     this.year, this.yearMonth, this.yearMonthDay, this.sync, this.keyFirebase,
     this.uuid, this.timestamp});

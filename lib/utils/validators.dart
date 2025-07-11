@@ -47,6 +47,10 @@ class Utils {
     String result = email.replaceRange(0, numSpace, '*' * numSpace);
     return result;
   }
+  static String getIntNumer(String text){
+    String cleanText = text.replaceAll(RegExp(r'[^\d]'), ''); // Xóa mọi ký tự không phải số
+    return cleanText;
+  }
 
   static bool isNotEmpty(String? string){
 

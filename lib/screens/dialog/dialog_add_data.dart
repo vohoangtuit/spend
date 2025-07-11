@@ -1,4 +1,7 @@
+import 'package:expenditure/model/data_model.dart';
+import 'package:expenditure/screens/dialog/dialog_controller.dart';
 import 'package:expenditure/utils/format_datetime.dart';
+import 'package:expenditure/utils/validators.dart';
 import 'package:expenditure/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
 
@@ -7,15 +10,16 @@ import '../../widgets/custom_button.dart';
 import '../../widgets/custom_textfiled.dart';
 import '../../widgets/general_widget.dart';
 
-class DialogCreate extends StatefulWidget {
+class DialogAddData extends StatefulWidget {
   final String title;
-  const DialogCreate({super.key, required this.title});
+  final ValueChanged<DataModel>data;
+  const DialogAddData({super.key, required this.title, required this.data});
 
   @override
-  State<DialogCreate> createState() => _DialogCreateState();
+  State<DialogAddData> createState() => _DialogAddDataState();
 }
 
-class _DialogCreateState extends State<DialogCreate> {
+class _DialogAddDataState extends State<DialogAddData> {
   final double itemHeight =50;
   final _nameController = TextEditingController();
   final _amountController = TextEditingController();
@@ -84,6 +88,11 @@ class _DialogCreateState extends State<DialogCreate> {
             decoration: bgNotBorder(Colors.grey.shade50, 5),
             child: InkWell(
               onTap: (){
+                DialogController(context).showCalendar(_dateTime, (newDate){
+                  setState(() {
+                    _dateTime =newDate;
+                  });
+                });
 
               },
               child: Padding(
@@ -106,7 +115,16 @@ class _DialogCreateState extends State<DialogCreate> {
       ),
     );
   }
-  void _onSubmit(){
+  void _onSubmit()async{
+    if(_nameController.text.isEmpty||_amountController.text.isEmpty){
+      return;
+    }
+    int value = int.tryParse(Utils.getIntNumer(_nameController.text)) ?? 0;
+    DataModel dataModel =await DataModel().create(_nameController.text.trimLeft().trimRight(), value, _dateTime);
+    widget.data(dataModel);
+    if(mounted){
+      Navigator.of(context).pop();
+    }
 
   }
 }

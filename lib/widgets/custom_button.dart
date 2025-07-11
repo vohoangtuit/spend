@@ -31,3 +31,18 @@ Widget buttonPrimary150(String title, VoidCallback onSubmit) {
     ),
   );
 }
+Widget buttonSmallColorWidth125(String title,Color bg, Color textColor, VoidCallback onSubmit) {
+  return InkWell(
+    onTap: onSubmit,
+    child: Column(
+      children: [
+        Container(
+            width: 125,
+            height: SizeView.heightButtonSmall,
+            decoration: bgNotBorder(bg, 10),
+            child: textButtonSmallColor(title,textColor)
+        ),
+      ],
+    ),
+  );
+}

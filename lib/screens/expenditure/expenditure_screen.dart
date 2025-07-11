@@ -3,14 +3,12 @@ import 'package:expenditure/localization/l10n/app_localizations.dart';
 import 'package:expenditure/model/data_model.dart';
 import 'package:expenditure/model/group_data_model.dart';
 import 'package:expenditure/screens/dialog/dialog_controller.dart';
-import 'package:expenditure/screens/general/view_add_data.dart';
 import 'package:expenditure/screens/general/base_screen.dart';
 import 'package:expenditure/screens/items/item_expenditure.dart';
 import 'package:expenditure/widgets/general_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../providers/create_provider.dart';
 
 class ExpenditureScreen extends ConsumerStatefulWidget {
 
@@ -61,7 +59,7 @@ class _ExpenditureScreenState extends BaseScreen<ExpenditureScreen> with Automat
       if(event.expenditure!) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           // ref.watch(createProvider.notifier).reset();
-          //_showAdd();
+
           _showCreate();
         });
 
@@ -97,21 +95,13 @@ class _ExpenditureScreenState extends BaseScreen<ExpenditureScreen> with Automat
    }
    void _showCreate(){
     DialogController(context).createData(title: '${AppLocalizations.of(context)!.add} ${AppLocalizations.of(context)!.expenditure}', data: (data){
-
+      resetEvent();
+      Future.delayed(Duration(seconds: 1),(){
+        _handelAdd(data);
+      });
     });
    }
-  void _showAdd(){
-    buildCreateData(
-        context: context,
-        title: '${AppLocalizations.of(context)!.add} ${AppLocalizations.of(context)!.expenditure}',
-        data: (DataModel data) {
-          Future.delayed(Duration(seconds: 1),(){
-            _handelAdd(data);
-          });
 
-        }
-    );
-  }
   void _handelAdd(DataModel data)async{
     await appDatabase.expenditure.saveData(data).then((item){
       if(item!=null){
