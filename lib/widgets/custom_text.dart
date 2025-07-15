@@ -102,6 +102,11 @@ Text textPrimaryMedium(String text) {
     style: textStyle(TextSize.textMedium, false, AppColor.primary),
   );
 }
+Text textPrimaryMediumBold(String text) {
+  return Text(text,
+    style: textStyle(TextSize.textMedium, true, AppColor.primary),
+  );
+}
 Text textBlue(String text) {
   return Text(text,
     style: textStyle(TextSize.text, false, Colors.blue),

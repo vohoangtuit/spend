@@ -1,4 +1,7 @@
+import 'package:expenditure/main.dart';
+import 'package:expenditure/model/data_model.dart';
 import 'package:expenditure/model/group_data_model.dart';
+import 'package:expenditure/screens/dialog/dialog_controller.dart';
 import 'package:expenditure/screens/general/base_screen.dart';
 import 'package:expenditure/widgets/app_color.dart';
 import 'package:expenditure/widgets/custom_text.dart';
@@ -65,10 +68,8 @@ class _ItemExpenditureState extends BaseScreen<ItemExpenditure> {
             ),
             InkWell(
               onTap: (){
-                setState(() {
-                  appDatabase.expenditure.deleteById(item.id);
-                  _data.remove(item);
-                });
+                _onEditData(item);
+
 
               },
                 child: Icon(Icons.edit_note,color: AppColor.gray,size: 30,))
@@ -83,4 +84,30 @@ class _ItemExpenditureState extends BaseScreen<ItemExpenditure> {
     // TODO: implement initState
     super.initState();
   }
+  void _onEditData(ExpenditureInfoData item){
+    DataModel dataModel =DataModel(name: item.name!,money: item.money,yearMonthDay: item.yearMonthDay);
+    DialogController(context).editData(item: dataModel, update: (DataModel value) {
+      _onUpdate(item,value);
+    }, delete: () {
+      _onDelete(item);
+    });
+  }
+ void _onDelete(ExpenditureInfoData item){
+    setState(() {
+      appDatabase.expenditure.deleteById(item.id);
+      _data.remove(item);
+    });
+  }
+  void _onUpdate(ExpenditureInfoData item,DataModel data){
+    appDatabase.expenditure.updateById(item.id, data).then((value){
+      showLog('value ${value.name}');
+      setState(() {
+        item =value;
+      });
+      showLog('item ${item.name}');
+    });
+
+
+  }
+
 }

@@ -91,7 +91,7 @@ class _IncomeScreenState extends BaseScreen<IncomeScreen> with AutomaticKeepAliv
 
   }
   void _showCreate(){
-    DialogController(context).createData(title: '${AppLocalizations.of(context)!.add} ${AppLocalizations.of(context)!.expenditure}', data: (data){
+    DialogController(context).createData(title: '${AppLocalizations.of(context)!.add} ${AppLocalizations.of(context)!.income}', data: (data){
       resetEvent();
       Future.delayed(Duration(seconds: 1),(){
         _handelAdd(data);

@@ -1,6 +1,7 @@
 import 'package:expenditure/localization/l10n/app_localizations.dart';
 import 'package:expenditure/model/data_model.dart';
 import 'package:expenditure/screens/dialog/dialog_add_data.dart';
+import 'package:expenditure/screens/dialog/dialog_edit.dart';
 import 'package:expenditure/screens/dialog/general_message.dart';
 import 'package:expenditure/widgets/app_color.dart';
 import 'package:expenditure/widgets/custom_text.dart';
@@ -31,57 +32,98 @@ class DialogController {
     }
   }
 
-  Future showBaseNotification(
-    String title,
-    String description) async {
+  Future showBaseNotification(String title, String description) async {
     await dismissDialog();
     dialog = Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20), // 👈 Bo góc ở đây
       ),
-      child: GeneralMessage(title: title, description: description, callback: () { dismissDialog(); },),
-
+      child: GeneralMessage(
+        title: title,
+        description: description,
+        callback: () {
+          dismissDialog();
+        },
+      ),
     );
     _showDialog();
   }
 
-  Future createData({required String title, required ValueChanged<DataModel> data})async{
+  Future createData({
+    required String title,
+    required ValueChanged<DataModel> data,
+  }) async {
     await dismissDialog();
     dialog = Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20), // 👈 Bo góc ở đây
       ),
-      child: DialogAddData(title: title, data: (DataModel value) {
-        data(value);
-      },),
+      child: DialogAddData(
+        title: title,
+        data: (DataModel value) {
+          data(value);
+        },
+      ),
     );
     _showDialog();
   }
-  Future showCalendar(DateTime date,ValueChanged<DateTime> newDate) async{
+
+  Future showCalendar(DateTime date, ValueChanged<DateTime> newDate) async {
     dismissDialog();
     dialog = Dialog(
-      child: DialogCalendar(date: date, newDate: (DateTime value) {
-        newDate(value);
-      },),
+      child: DialogCalendar(
+        date: date,
+        newDate: (DateTime value) {
+          newDate(value);
+        },
+      ),
+    );
+    _showDialog();
+  }
+
+  Future editData({
+    required DataModel item,
+    required ValueChanged<DataModel> update,
+    required VoidCallback delete,
+  }) async {
+    await dismissDialog();
+    dialog = Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: DialogEdit(
+        item: item,
+        update: (value) {
+          update(value);
+        },
+        delete: () {
+          delete();
+          dismissDialog();
+        },
+      ),
     );
     _showDialog();
   }
 }
-Widget viewTitle(BuildContext context,String title){
+
+Widget viewTitle(BuildContext context, String title) {
   return Column(
     children: [
       Container(
-        padding: EdgeInsets.only(top: 20,bottom: 20),
-        child: textBlueBold(title.isEmpty?AppLocalizations.of(context)!.notification.toUpperCase():title.toUpperCase(), ),
+        padding: EdgeInsets.only(top: 20, bottom: 20),
+        child: textBlueBold(
+          title.isEmpty
+              ? AppLocalizations.of(context)!.notification.toUpperCase()
+              : title.toUpperCase(),
+        ),
       ),
-      Divider(height: 1,color: AppColor.primary,),
+      Divider(height: 1, color: AppColor.primary),
       spaceHeight(20),
     ],
   );
 }
-Widget contentDialog(Widget content){
+
+Widget contentDialog(Widget content) {
   return Container(
-    padding: EdgeInsets.only(left: 8,right:8,top: 10,bottom: 8),
+    padding: EdgeInsets.only(left: 8, right: 8, top: 10, bottom: 8),
     decoration: BoxDecoration(
       shape: BoxShape.rectangle,
       color: AppColor.white,
@@ -95,7 +137,8 @@ Widget contentDialog(Widget content){
     child: content,
   );
 }
-Widget headerPrimaryBlue(String title){
+
+Widget headerPrimaryBlue(String title) {
   return Container(
     height: 40,
     decoration: BoxDecoration(
@@ -108,10 +151,11 @@ Widget headerPrimaryBlue(String title){
         bottomRight: Radius.zero,
       ),
     ),
-    child: Center(child: textBold(title),),
+    child: Center(child: textBold(title)),
   );
 }
-Widget headerNoBackground(String title){
+
+Widget headerNoBackground(String title) {
   return Container(
     height: 45,
     decoration: BoxDecoration(
@@ -127,7 +171,7 @@ Widget headerNoBackground(String title){
     child: Column(
       children: [
         Expanded(child: Center(child: textBold(title.toUpperCase()))),
-        Container(height: 1,color: Colors.blue,)
+        Container(height: 1, color: Colors.blue),
       ],
     ),
   );

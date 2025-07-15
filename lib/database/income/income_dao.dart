@@ -32,7 +32,21 @@ class IncomeDao extends DatabaseAccessor<AppDatabase> with _$IncomeDaoMixin{
   }
 
   Future<bool> updateItem(IncomeInfoCompanion expenditure) => update(incomeInfo).replace(expenditure);
-
+  Future<IncomeInfoData> updateById(int id, DataModel data) async {
+    await (db.update(incomeInfo)..where((t) => t.id.equals(id))).write(
+      IncomeInfoCompanion(
+        name: Value(data.name),
+        money: Value(data.money),
+        day: Value(data.day),
+        month: Value(data.month),
+        year: Value(data.year),
+        yearMonth: Value(data.yearMonth),
+        yearMonthDay: Value(data.yearMonthDay),
+        timestamp: Value(data.timestamp),
+      ),
+    );
+    return await (db.select(incomeInfo)..where((t) => t.id.equals(id))).getSingle();
+  }
 
   Future<IncomeInfoData?> saveData(DataModel data)async {
     IncomeInfoCompanion info = IncomeInfoCompanion(

@@ -8,6 +8,7 @@
 todo update file pub
 > flutter clean
 > flutter pub get
+> flutter build ios
 > cd ios
 > pod update || pod install // todo if error run:  'pod deintegrate' before
 
@@ -25,6 +26,4 @@ todo update file pub
   - debug run: keytool -exportcert -alias androiddebugkey -keystore "/Users/admin/.android/debug.keystore" | openssl sha1 -binary | openssl base64
   pass: android
     => 62PZvjwRCG78phseuNxM7YkbDVk=
-
-
 

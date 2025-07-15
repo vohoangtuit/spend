@@ -212,6 +212,18 @@ abstract class AppLocalizations {
   /// **'Sửa'**
   String get edit;
 
+  /// No description provided for @edit1.
+  ///
+  /// In vi, this message translates to:
+  /// **'Chỉnh sửa'**
+  String get edit1;
+
+  /// No description provided for @update.
+  ///
+  /// In vi, this message translates to:
+  /// **'Cập nhật'**
+  String get update;
+
   /// No description provided for @sortBy.
   ///
   /// In vi, this message translates to:

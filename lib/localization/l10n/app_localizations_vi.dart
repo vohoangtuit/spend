@@ -66,6 +66,12 @@ class AppLocalizationsVi extends AppLocalizations {
   String get edit => 'Sửa';
 
   @override
+  String get edit1 => 'Chỉnh sửa';
+
+  @override
+  String get update => 'Cập nhật';
+
+  @override
   String get sortBy => 'Sắp xếp theo';
 
   @override

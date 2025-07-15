@@ -1,6 +1,9 @@
 import 'package:expenditure/database/app_database.dart';
 import 'package:expenditure/utils/format_datetime.dart';
-
+enum TypeData{
+  expenditure,
+  income
+}
 class DataModel{
   String? id;
   String? name;
@@ -43,7 +46,7 @@ class DataModel{
     uuid = json['uuid']??'';
     timestamp = json['timestamp']??'';
   }
-  Future<DataModel> create(String name, int money, DateTime date,{AccountInfoData? account})async{
+  Future<DataModel> create(String name, int money, DateTime date,{required AccountInfoData? account})async{
     DataModel data =DataModel(name: name,money: money);
     data.year = date.year;
     data.month = date.month;
@@ -59,6 +62,7 @@ class DataModel{
 
     return data;
   }
+
 
   @override
   String toString() {
